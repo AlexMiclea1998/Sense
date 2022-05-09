@@ -8,9 +8,9 @@ dataset = load_dataset('csv', data_files={'train': ['Book2.csv'], 'test': 'Book2
 
 train_dataset = dataset["train"].shuffle(seed=42).select([i for i in list(range(300))])
 test_dataset = dataset["test"].shuffle(seed=42).select([i for i in list(range(50))])
-print(test_dataset)
 
-from transformers import AutoTokenizer
+
+from transformers import AutoTokenizer, AutoModel, BertTokenizer, BertForPreTraining, pipeline
 
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 
@@ -61,7 +61,7 @@ training_args = TrainingArguments(
     num_train_epochs=2,
     weight_decay=0.01,
     save_strategy="epoch",
-    push_to_hub=True,
+    push_to_hub=False,
 )
 
 trainer = Trainer(
@@ -78,8 +78,6 @@ trainer = Trainer(
 
 trainer.train()
 trainer.evaluate()
-trainer.push_to_hub()
-from transformers import pipeline
 
-#sentiment_model = pipeline(task='sentiment-analysis', model="/Users/micleaalexandru/PycharmProjects/pythonProject/misc/finetuning-sentiment-model-1500-samples")
-#print("This:",sentiment_model(["I love this move", "This movie sucks!"]))
+
+
