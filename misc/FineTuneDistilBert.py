@@ -6,8 +6,8 @@ from datasets import load_dataset
 
 dataset = load_dataset('csv', data_files={'train': ['Book2.csv'], 'test': 'Book2.csv'})
 
-train_dataset = dataset["train"].shuffle(seed=42).select([i for i in list(range(300))])
-test_dataset = dataset["test"].shuffle(seed=42).select([i for i in list(range(50))])
+train_dataset = dataset["train"].shuffle(seed=42).select([i for i in list(range(180))])
+test_dataset = dataset["test"].shuffle(seed=42).select([i for i in list(range(40))])
 
 
 from transformers import AutoTokenizer, AutoModel, BertTokenizer, BertForPreTraining, pipeline
@@ -78,6 +78,9 @@ trainer = Trainer(
 
 trainer.train()
 trainer.evaluate()
+# F1: 0.6538461538461539
+# Accuracy: 0.55
+
 
 
 
